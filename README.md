@@ -1,4 +1,4 @@
-# TP3 – Spark SQL: Google N-Gram Analysis
+ Spark SQL: Google N-Gram Analysis
 
 ## Overview
 This practical assignment introduces Spark SQL and the DataFrame API. It consists of loading the Google Books N-Gram dataset (bi-grams) into a Spark DataFrame, registering it as a temporary view, and answering a series of analytical queries using two approaches:
