@@ -2,26 +2,17 @@ from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 from pyspark.sql.window import Window
 
-# ---------------------------------------
-# 1) Spark Session
-# ---------------------------------------
+
 spark = SparkSession.builder \
     .appName("TP3-SparkSQL-NGram") \
     .getOrCreate()
 
 spark.sparkContext.setLogLevel("ERROR")
 
-# ---------------------------------------
-# 2) Load CSV as DataFrame
-# ---------------------------------------
-# Choose ONE input path:
-# If using container local file:
+
 input_path = "file:///root/ngram.csv"
 
-# If using HDFS:
-# input_path = "hdfs://hadoop-master:9000/user/root/ngram/ngram.csv"
 
-# Try comma-separated first. If your file uses another separator, tell me.
 df = spark.read \
     .option("header", "false") \
     .option("inferSchema", "true") \
@@ -36,15 +27,12 @@ df.printSchema()
 print("\n=== Sample ===")
 df.show(5, truncate=False)
 
-# Ensure correct column names (lowercase)
-# If your CSV headers are different, rename here.
+
 expected = {"ngram", "year", "count", "pages", "books"}
 cols = set([c.lower() for c in df.columns])
 if cols != expected:
-    # Try to normalize columns names
     df = df.toDF(*[c.lower() for c in df.columns])
 
-# Cast types explicitly (important for correctness)
 df = df.select(
     F.col("ngram").cast("string").alias("ngram"),
     F.col("year").cast("int").alias("year"),
@@ -53,10 +41,8 @@ df = df.select(
     F.col("books").cast("int").alias("books")
 )
 
-# Register as temporary SQL view/table
 df.createOrReplaceTempView("ngrams")
 
-# Utility printer
 def show_title(title):
     print("\n" + "="*70)
     print(title)
