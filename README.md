@@ -25,7 +25,7 @@ The input file `ngram.csv` (tab-separated, no header) comes from the Google N-Gr
 | `pages` | Integer | Number of pages containing the bi-gram in that year |
 | `books` | Integer | Number of distinct books containing the bi-gram in that year |
 
-The dataset is not included in this repository because of its size. It is available from the [Google Books N-Gram datasets page](http://storage.googleapis.com/books/ngrams/books/datasetsv2.html).
+
 
 ## Project Structure
 ```
